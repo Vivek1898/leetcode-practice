@@ -1,6 +1,20 @@
 class Solution {
 public:
-    int fib(int n) {
+    int fib(int N) {
+        if(N < 2) 
+            return N;
+    	int a = 0, b = 1, c = 0;
+        for(int i = 1; i < N; i++)
+        {
+            c = a + b;
+            a = b;
+            b = c;
+        }
+        return c;
+    }
+    
+    
+    int fibdpp(int n) {
         int dp[n+1];
         if(n<2) return n;
         dp[0]=0;
