@@ -1,5 +1,7 @@
 class Solution {
 public:
+    // Sum 
+    // Apply Houserobber
     int deleteAndEarn(vector<int>& nums) {
         int n = 10001;
         vector<int> count(n);
