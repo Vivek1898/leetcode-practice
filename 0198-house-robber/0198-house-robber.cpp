@@ -3,6 +3,8 @@ public:
     // 2 options
     // 1- rob curr house 
     //don't rob
+    // bottom-up approach
+    // O(N)
     int rob(vector<int>& nums) {
         int n=nums.size();
         if(n==1) return nums[0];
