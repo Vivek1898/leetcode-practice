@@ -10,7 +10,7 @@ public:
 		// using queue to store position of elements whose answer we know, to use it to derive others' distances
         queue<pair<int,int>> q;
         
-		// distance of 0 from nearest 0 will be 0 (itself)
+		// distance of 0 from nearest 0 will be 0 (itselff)
         for(int i=0; i<m; i++){
             for(int j=0; j<n; j++){
                 if(mat[i][j]==0){
