@@ -1,20 +1,34 @@
 class Solution {
 public:
-    int minFallingPathSumHelper(vector<vector<int>>& matrix, int r, int c, vector<vector<int>>& dp){
-        if(r == 0 and c < matrix[0].size() and c >= 0) return matrix[r][c]; 
-        if(c >= matrix[0].size() or c < 0) return INT_MAX;
+    int minPathL(int i, int j, vector<vector<int>>& matrix,vector<vector<int>>& dp){
+        if(j<0 || j>=matrix[0].size())
+            return 1e9;
         
-        if(dp[r][c] != INT_MAX) return dp[r][c];
-        return dp[r][c] = matrix[r][c] + min(min(minFallingPathSumHelper(matrix, r-1, c+1, dp), minFallingPathSumHelper(matrix, r-1, c, dp)), minFallingPathSumHelper(matrix, r-1, c-1, dp));
+        if(i==0)
+            return matrix[0][j];
         
+        if(dp[i][j]!=-1)
+            return dp[i][j];
+        
+        int d = matrix[i][j] + minPathL(i-1,j,matrix,dp);
+        int ld = matrix[i][j] + minPathL(i-1,j-1,matrix,dp);
+        int rd= matrix[i][j] + minPathL(i-1,j+1,matrix,dp);
+        
+        return dp[i][j] = min(d,min(ld,rd));
     }
+    
     int minFallingPathSum(vector<vector<int>>& matrix) {
-        int rows = matrix.size(), cols = matrix[0].size();
-        vector<vector<int>> dp(rows+1, vector<int>(cols+1, INT_MAX));
-        int ans = INT_MAX;
-        for(int c=0; c < cols; c++){
-            ans = min(ans, minFallingPathSumHelper(matrix, rows-1, c, dp));
-        }
-        return ans;
+        int mini=INT_MAX;
+        int n = matrix.size();
+        int m = matrix[0].size();
+		
+		vector<vector<int>> dp(n,vector<int>(m,-1));
+        
+
+         for(int i=0;i<m;i++){
+           mini=min(mini,minPathL(n-1,i,matrix,dp))  ;
+         }
+                
+        return mini;
     }
 };
