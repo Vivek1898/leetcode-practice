@@ -1,26 +1,23 @@
 class Solution {
 public:
+    int sumCount(int i, int j,vector<vector<int>> &matrix,vector<vector<int>> &dp)
+    {
+       if(i==0 && j == 0)
+    return matrix[0][0];
+  if(i<0 || j<0)
+    return 1e9;
+  if(dp[i][j]!=-1) return dp[i][j];
+        int up = matrix[i][j]+ sumCount(i-1,j,matrix,dp);
+          int left = matrix[i][j]+ sumCount(i,j-1,matrix,dp);
+        return dp[i][j]=min(up,left);
+        
+    }
+
+        
     int minPathSum(vector<vector<int>>& grid) {
-       int r = grid.size();
-        int c = grid[0].size();
-
-        vector <vector <int>> dp(r, vector <int>(c, 0));
-        dp[0][0] = grid[0][0];
-        
-        for (int i = 1; i < c; i++) {
-            dp[0][i] = grid[0][i] + dp[0][i - 1];
-        }
-        
-        for (int i = 1; i < r; i++) {
-            dp[i][0] = grid[i][0] + dp[i - 1][0];
-        }
-
-        for (int i = 1; i < r; i++) {
-            for (int j = 1; j < c; j++) {
-                dp[i][j] = grid[i][j] + min(dp[i - 1][j], dp[i][j - 1]);
-            }
-        }
-         
-        return dp[r - 1][c - 1];  
+        int n=grid.size();
+         int m=grid[0].size();
+        vector<vector<int>>dp(n,vector<int>(m,-1));
+    return sumCount(n-1,m-1,grid,dp);
     }
 };
