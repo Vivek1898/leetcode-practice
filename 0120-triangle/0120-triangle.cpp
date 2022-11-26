@@ -1,16 +1,26 @@
 class Solution {
 public:
-int minimumTotal(vector<vector<int> > &triangle) {
-    int n = triangle.size();
-    vector<int> minlen(triangle.back());
-    for (int layer = n-2; layer >= 0; layer--) // For each layer
-    {
-        for (int i = 0; i <= layer; i++) // Check its every 'node'
-        {
-            // Find the lesser of its two children, and sum the current value in the triangle with it.
-            minlen[i] = min(minlen[i], minlen[i+1]) + triangle[layer][i]; 
+    int minimumTotal(vector<vector<int>>& triangle) {
+         int n = triangle.size();
+        
+            vector<vector<int> > dp(n,vector<int>(n,0));
+    
+    for(int j=0;j<n;j++){
+        dp[n-1][j] = triangle[n-1][j];
+    }
+        //  We have already filled the last row (i=N-1), if we start from row ‘N-2’ and move upwards we will find the values correctly.
+    
+    for(int i=n-2; i>=0; i--){
+        for(int j=i; j>=0; j--){
+            
+            int down = triangle[i][j]+dp[i+1][j];
+            int diagonal = triangle[i][j]+dp[i+1][j+1];
+            
+            dp[i][j] = min(down, diagonal);
         }
     }
-    return minlen[0];
-}
+    
+    return dp[0][0];
+
+    }
 };
