@@ -1,36 +1,28 @@
 class Solution {
 public:
-    int longestCommonSubsequence(string text1, string text2) {
-        // LCS -> LIS
-        vector<int> alph[128];  // record text1's alphabet in text2 pos.
-        int maps[128];
-        memset(maps, 0, sizeof(maps));
-        for(int i = 0; i < text1.size(); i++) maps[text1[i]] = 1;
-        
-        for(int j = text2.size(); j > -1; j--) if(maps[text2[j]] == 1) alph[text2[j]].push_back(j);
-        vector<int> nums;
-        for(int i = 0; i < text1.size(); i++) {
-            if(alph[text1[i]].size() > 0) nums.insert(nums.end(), alph[text1[i]].begin(), alph[text1[i]].end());
-        }
-        
-        // get LIS's length by monotone stack method : O(nlogn)
-        vector<int> pool;
-        for(int i = 0; i < nums.size(); i++) {
-            if(i == 0 || nums[i] > pool.back() ) {
-                pool.push_back(nums[i]);
-            } else if(nums[i] == pool.back()) {
-                continue;
-            } else {
-                int s = 0, e = pool.size() - 1, mid = 0;
-                while(s < e) {
-                    mid = (s + e)/2;
-                    if(pool[mid] < nums[i]) s = mid + 1;
-                    else e = mid;
+    int longestCommonSubsequence(string s1, string s2) 
+    {
+        int n = s1.length();
+        int m = s2.length();
+        vector<vector<int>> dp(n+1,vector<int> (m+1,0));
+
+        // no need to write base case as we already declare our dp as 0
+
+        for(int i=1;i<=n;i++)
+        {
+            for(int j=1;j<=m;j++)
+            {
+                if(s1[i-1]==s2[j-1])
+                {
+                    dp[i][j] = 1 + dp[i-1][j-1];
                 }
-                pool[e] = nums[i];
+                else
+                {
+                    dp[i][j] = max(dp[i][j-1],dp[i-1][j]);
+                }
             }
         }
-        
-        return pool.size();
+
+        return dp[n][m];
     }
 };
