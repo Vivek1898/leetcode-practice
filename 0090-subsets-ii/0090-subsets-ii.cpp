@@ -34,9 +34,7 @@ public:
 
 
 // bfs
-
-
-class Solution {
+class Solution3 {
 public:
     vector<vector<int>> subsetsWithDup(vector<int>& nums) {
         sort(nums.begin(),nums.end());
@@ -61,5 +59,39 @@ public:
             
         }
         return powerset;
+    }
+};
+
+//subsets
+
+
+// subsets
+
+class Solution {
+public:
+    void helper(vector<int>& nums,  vector<int> &curr,vector<vector<int>> &ans,int idx){
+        if(idx==nums.size()) {
+            ans.push_back(curr);
+            return;
+        }
+        
+        // pick and add
+        curr.push_back(nums[idx]);
+         helper(nums,curr,ans,idx+1);
+        curr.pop_back();
+        // logic
+        while(idx+1<nums.size() and nums[idx]==nums[idx+1]) idx++;
+        // not pick
+         helper(nums,curr,ans,idx+1);
+        
+    }
+    
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+       vector<vector<int>> ans;
+         sort(nums.begin(),nums.end());
+         vector<int> curr;
+        helper(nums,curr,ans,0);
+        return ans;
+        
     }
 };
