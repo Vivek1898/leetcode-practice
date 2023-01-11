@@ -10,10 +10,10 @@ public:
             int mid = left + (right - left) / 2;
             
             if(isBadVersion(mid) == false){
-                left = mid + 1;
-            } else {
-                ans = mid;
-                right = mid - 1;
+                left=mid+1;
+            }else{
+                ans=mid;
+                right=mid-1;
             }
         }
         return ans;
