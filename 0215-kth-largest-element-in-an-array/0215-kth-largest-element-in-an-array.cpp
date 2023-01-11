@@ -1,26 +1,26 @@
 class Solution {
 public:
-    int findKthLargest1(vector<int>& nums, int k) {
-          sort(nums.begin(), nums.end(), greater<int>());
-        return nums[k-1];
+    int findKthLargest(vector<int>& arr, int k) {
+   int low=*min_element(arr.begin(),arr.end());
+      int high=*max_element(arr.begin(),arr.end());
+      int ans=1;
+      while(low<=high){
+          int mid =low+(high-low)/2;
+          int cnt=0;
+          for(int i=0;i<arr.size();i++){
+              if(arr[i]>=mid) cnt++;
+          }
+          // if(arr.size()==1){
+          //     return ans;
+          // }else
+           if(cnt>=k){
+             // ans=mid;
+              low=mid+1;
+          }else{
+              high=mid-1;
+          }
+      }
+      //  arr.size()==1? ans:
+      return  low-1;
     }
-     int findKthLargest(vector<int>& nums, int k) {
-    //Min-Heap
-        priority_queue<int, vector<int>, greater<int>> pq;
-        
-		//We push first k elements into min-heap
-        for(int i=0;i<k;i++) pq.push(nums[i]);
-        
-		//Now, if the element at top of min-heap is smaller, we remove it and add new element
-        for(int i=k;i<nums.size();i++) {
-            if(pq.top()<nums[i]) {
-                pq.pop();
-                pq.push(nums[i]);
-            }
-        }
-        
-		//Return the top (smallest) of min-heap
-        return pq.top();
-    }
-    
 };
