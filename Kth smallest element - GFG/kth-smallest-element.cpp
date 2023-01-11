@@ -13,10 +13,37 @@ class Solution{
     // l : starting index of the array i.e 0
     // r : ending index of the array i.e size-1
     // k : find kth smallest element and return using this function
+    
+    // int count(int arr[],int mid,int n){
+    //     int cnt=0;
+    //     for(int i=0;i<n;i++){
+    //         if(arr[i]<mid) cnt++;
+    //     }
+    //     return cnt;
+    // }
     int kthSmallest(int arr[], int l, int r, int k) {
         //code here
-        sort(arr,arr+r+1);
-        return arr[k-1];
+       // sort(arr,arr+r+1);
+      // while()
+      //  return arr[k-1];
+      int low=*min_element(arr,arr+r);
+      int high=*max_element(arr,arr+r);
+      int ans=-1;
+      while(low<high){
+          int mid =low+(high-low)/2;
+          int cnt=0;
+          for(int i=0;i<r+1;i++){
+              if(arr[i]<=mid) cnt++;
+          }
+          
+          if(cnt<k){
+           //   ans=mid;
+              low=mid+1;
+          }else{
+              high=mid;
+          }
+      }
+      return low;
     }
 };
 
