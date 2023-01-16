@@ -1,4 +1,4 @@
-class Solution {
+class Solution2 {
 public:
     int numRescueBoats(vector<int>& p, int limit) {
         
@@ -21,4 +21,51 @@ public:
         }
         return count;
     }
+};
+
+class Solution {
+    public:
+    
+bool check(int mid,vector<int>people,int limit)
+{
+int i = 0, j = people.size() - 1,cnt = 0;
+
+    while(i <= j)
+    {  
+        if(people[i] + people[j] <= limit)
+        {
+            ++i;
+            --j;
+        }
+        else
+        {
+            --j;
+        }
+        
+        ++cnt;  // number of boats
+    }
+    
+    return cnt<=mid;
+}
+int numRescueBoats(vector<int>& people, int limit) {
+    sort(people.begin(),people.end());
+    int low=0;
+    int ans=0;
+    int high=people.size();
+    while(low<=high)
+    {
+        int mid=(low+high)/2;
+        if(check(mid,people,limit)==true)
+        {
+            ans=mid;
+            high=mid-1;
+        }
+        else
+        {
+            low=mid+1;
+        }
+    }
+    return ans;
+   
+}
 };
