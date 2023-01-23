@@ -19,9 +19,12 @@ int maxPathSum(TreeNode* root) {
 }
 int chk(TreeNode* root, int& cnt){
     if(root==NULL){return 0;}
-    int l=max(0, chk(root->left, cnt));
-    int r=max(0, chk(root->right, cnt));
-    cnt=max(cnt, l+r+root->val);
-    return root->val+max(l, r);
+    int left= chk(root->left, cnt);
+    int right= chk(root->right, cnt);
+    left=max(left,0);
+    right=max(right,0);
+   int tempMax=left+right+root->val;
+    cnt=max(cnt, tempMax);
+    return root->val+max(left, right);
 }
 };
