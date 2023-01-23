@@ -8,7 +8,7 @@ public:
         }
         
         for(int i=1;i<=n;i++){
-            
+            //trusted by all
             if(count[i]==n-1){
                 return i;
             }
