@@ -16,12 +16,12 @@ class Solution{
     int slowWinStart=0;
     int maxLen=0;
     for(int fastEnd=0;fastEnd<s.size();fastEnd++){
-        char LastChar=s[fastEnd];
-        mp[LastChar]++;
+        char RightChar=s[fastEnd];
+        mp[RightChar]++;
         while((int)mp.size()>k){
-            char firstChar=s[slowWinStart];
-            mp[firstChar]--;
-            if(mp[firstChar]==0) mp.erase(firstChar);
+            char LeftChar=s[slowWinStart];
+            mp[LeftChar]--;
+            if(mp[LeftChar]==0) mp.erase(LeftChar);
             slowWinStart++;
         }
         maxLen=max(maxLen,fastEnd-slowWinStart+1);
