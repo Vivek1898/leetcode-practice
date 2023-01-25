@@ -18,16 +18,16 @@ public:
          TreeNode* rightPtr=root;
         if(!root) return 0 ;
         
-//         while(leftPtr) {
-//             leftPtr=leftPtr->left;
-//             l++;
-//         }
-//         while(rightPtr) {
-//             rightPtr=rightPtr->right;
-//             r++;
-//         }
+        while(leftPtr) {
+            leftPtr=leftPtr->left;
+            l++;
+        }
+        while(rightPtr) {
+            rightPtr=rightPtr->right;
+            r++;
+        }
         
-//         if(l==r) return pow(2,l)-1;
+        if(l==r) return pow(2,l)-1;
         return 1+countNodes(root->left) +countNodes(root->right);
         
     }
