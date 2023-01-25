@@ -11,19 +11,32 @@
  */
 class Solution {
 public:
-  int MOD = 1e9 + 7;
-    long long treeSum = 0, result = 0, subTreeSum;
-    
+    long long subTree=0;
+     long long totalSum=0;
+    //int ans=0;
+     long long ans=0;
+     long long mod=1e9+7;
+    void total(TreeNode*root){
+        if(!root) return;
+        totalSum+=root->val%mod;
+        total(root->left);
+         total(root->right);
+        
+    }
+    int solve(TreeNode* root){
+        if(!root) return 0 ;
+        subTree=solve(root->right) + solve(root->left) + root->val;
+        int b=totalSum-subTree;
+        ans=max(ans,subTree*b);
+        
+       subTree= subTree%mod;
+        return subTree;
+    }
     int maxProduct(TreeNode* root) {
-        treeSum = totalSumSubTree(root) , totalSumSubTree(root);
-        return result % MOD;
+        total(root);
+    solve(root);
+        return ans%mod;
+        
+        
     }
-    int totalSumSubTree(TreeNode* root){
-        if(!root) return 0;
-        subTreeSum = totalSumSubTree(root->left) + totalSumSubTree(root->right) + root->val;
-        result = max(result, subTreeSum * (treeSum - subTreeSum));
-        return subTreeSum;
-
-    }
-  
-};  
+};
