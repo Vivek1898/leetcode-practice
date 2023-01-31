@@ -9,7 +9,7 @@ public:
         }
         vector<int> ans;
         for(int i=0; i<n; i++) {
-            if (!indeg[i]) ans.push_back(i);
+            if (!vis[i] || !indeg[i]) ans.push_back(i);
         }
         return ans;
     }
