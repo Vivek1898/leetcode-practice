@@ -1,49 +1,66 @@
 class Solution {
 public:
-    int orangesRotting(vector<vector<int>>& grid) 
-    {
-        
-        vector<int> dir={-1,0,1,0,-1}; //used for finding all 4 adjacent coordinates
-        
-        int m=grid.size();
-        int n=grid[0].size();
-        
-        queue<pair<int,int>> q;
-        int fresh=0; //To keep track of all fresh oranges left
-        for(int i=0;i<m;i++)
-            for(int j=0;j<n;j++)
-            {
-                if(grid[i][j]==2)
-                    q.push({i,j});
-                if(grid[i][j]==1)
-                    fresh++;
-            }
-        int ans=-1; //initialised to -1 since after each step we increment the time by 1 and initially all rotten oranges started at 0.
-        while(!q.empty())
-        {
-            int sz=q.size();
-            while(sz--)
-            {
-                pair<int,int> p=q.front();
-                q.pop();
-                for(int i=0;i<4;i++)
-                {
-                    int r=p.first+dir[i];
-                    int c=p.second+dir[i+1];
-                    if(r>=0 && r<m && c>=0 && c<n &&grid[r][c]==1)
-                    {
-                        grid[r][c]=2;
-                        q.push({r,c});
-                        fresh--; // decrement by 1 foreach fresh orange that now is rotten
-                    }
-                    
-                }
-            }
-            ans++; //incremented after each minute passes
+    int orangesRotting(vector < vector < int >> & grid) {
+      // figure out the grid size
+      int n = grid.size();
+      int m = grid[0].size();
+
+      // store {{row, column}, time}
+      queue < pair < pair < int, int > , int >> q;
+      int vis[n][m];
+      int cntFresh = 0;
+      for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+          // if cell contains rotten orange
+          if (grid[i][j] == 2) {
+            q.push({{i, j}, 0}); 
+            // mark as visited (rotten) in visited array
+            vis[i][j] = 2;
+          }
+          // if not rotten
+          else {
+            vis[i][j] = 0;
+          }
+          // count fresh oranges
+          if (grid[i][j] == 1) cntFresh++;
         }
-        if(fresh>0) return -1; //if fresh>0 that means there are fresh oranges left
-        if(ans==-1) return 0; //we initialised with -1, so if there were no oranges it'd take 0 mins.
-        return ans;
-        
+      }
+
+      int tm = 0;
+      // delta row and delta column
+      int drow[] = {-1, 0, +1, 0};
+      int dcol[] = {0, 1, 0, -1}; 
+      int cnt = 0;
+
+      // bfs traversal (until the queue becomes empty)
+      while (!q.empty()) {
+        int r = q.front().first.first;
+        int c = q.front().first.second;
+        int t = q.front().second;
+        tm = max(tm, t);
+        q.pop();
+        // exactly 4 neighbours 
+        for (int i = 0; i < 4; i++) {
+          // neighbouring row and column
+          int nrow = r + drow[i];
+          int ncol = c + dcol[i];
+          // check for valid cell and 
+          // then for unvisited fresh orange
+          if (nrow >= 0 && nrow < n && ncol >= 0 && ncol < m &&
+            vis[nrow][ncol] == 0 && grid[nrow][ncol] == 1) {
+            // push in queue with timer increased
+             q.push({{nrow, ncol}, t + 1}); 
+            // mark as rotten
+            vis[nrow][ncol] = 2;
+            cnt++;
+          }
+        }
+      }
+
+      // if all oranges are not rotten
+      if (cnt != cntFresh) return -1;
+
+      return tm;
+
     }
 };
