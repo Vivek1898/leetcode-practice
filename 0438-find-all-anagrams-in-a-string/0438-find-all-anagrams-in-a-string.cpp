@@ -35,25 +35,7 @@ public:
             if(isMatching(fre, curr)) idx.push_back(i - p.size() + 1);
         }
         
-//         for(int f=0;f<s.size();f++){
-//             char r=s[f];
-//             if(m.find(r)!=m.end()){
-//                 m[r]--;
-//                 if(m[r]==0) match++;
-//             }
-            
-//             if(match==(int)m.size()){
-//                 idx.push_back(slow);
-//             }
-            
-//             if(f>=p.size()-1){
-//                 char l=s[slow++];
-//                 if(m.find(l)!=m.end()){
-//                     if(m[l]==0) match--;
-//                 }
-//                 m[l]++;
-//             }
-//         }
+
         return idx;
     }
 };
