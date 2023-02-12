@@ -7,19 +7,29 @@ class Solution{
 public:
     long maximumSumSubarray(int k, vector<int> &a , int n){
         // code here 
-        long curr=0;
-    for(long int i=0;i<k;i++){
-        curr+=a[i];
-        
-    }
-   long int mx=curr;
-    for(long int i=k;i<n;i++){
-        long int ax=a[i];
-        long int m=a[i-k];
-       curr+=ax-m;
-        mx=max(mx,curr);
-    }
-    return mx;
+         int ws = 0;
+         int we = 0;
+         long long ans = 0;
+         long long sum = 0;
+         while(we<n)
+         {
+             sum+=a[we];
+             if(we-ws+1==k){
+                 ans=max(sum,ans);
+             }else if(we-ws+1>k){
+                 while(we-ws+1>k)
+                 {
+                     sum-=a[ws];
+                     ws++;
+                 }
+                 ans = max(ans,sum);
+                 
+             }
+             we++;
+         }
+         return ans;
+    
+    // return ans;
     }
 };
 
