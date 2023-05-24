@@ -6,14 +6,14 @@ public:
         if(!a)
         return 0;
         
-        int ans = 1;
+        int ans = INT_MIN;
         queue<pair<TreeNode*,long long int>>q;
         q.push({a,0});
 
         while(!q.empty())
         {
             int sz = q.size();
-            int a1 = 0, b1 = 0;
+            int first = 0, last = 0;
             int l = 0;
             int mn = q.front().second;
             for(int i = 0; i < sz; i++)
@@ -27,10 +27,10 @@ public:
                 q.pop();
                 // leftmost node
                 if(i == 0)
-                a1 = k;
+                first = k;
                 // rightmost node
                 if(i == sz-1)
-                b1 = k;
+                last = k;
 
                 if(b->left)
                 q.push({b->left,2*k+1});
@@ -39,7 +39,7 @@ public:
                 q.push({b->right,2*k+2});
             }
             // To store maximum difference.
-            ans = max(ans,b1-a1+1);
+            ans = max(ans,last-first+1);
         }
 
         return ans;
