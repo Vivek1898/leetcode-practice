@@ -10,10 +10,9 @@ class Solution {
         string value = mapping[number];
 
         for(int i = 0; i< value.length(); i++){
-            output.push_back(value[i]);
-        solve(digits, output, index+1, ans, mapping);
-        //backtracking i.e "ad" -> "a" -> "af".....
-        output.pop_back();
+             output.push_back(value[i]);
+             solve(digits, output, index+1, ans, mapping);
+                 output.pop_back();
         }
     }
 public:
