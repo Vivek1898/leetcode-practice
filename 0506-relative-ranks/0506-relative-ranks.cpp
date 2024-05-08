@@ -12,6 +12,7 @@ public:
     
         vector<string> rank(N);
         int place = 1;
+        //
         while (!heap.empty()) {
             int originalIndex = heap.top().second;
             heap.pop();
