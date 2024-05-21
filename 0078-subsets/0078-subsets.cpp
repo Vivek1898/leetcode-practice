@@ -6,13 +6,12 @@ public:
              ans.push_back(curr);
              return;
          }
-         // pick copy and add
+       
          curr.push_back(nums[idx]);
          helper(nums,curr,ans,idx+1);
-        
-         // dont pick
-          curr.pop_back();
-             helper(nums,curr,ans,idx+1);
+         curr.pop_back();
+         helper(nums,curr,ans,idx+1);
+         
      }
     vector<vector<int>> subsets(vector<int>& nums) {
         vector<vector<int>>ans;
