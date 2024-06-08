@@ -1,20 +1,19 @@
 class Solution {
 public:
-    // 2 options
-    // 1- rob curr house 
-    //don't rob
-    // bottom-up approach
-    // O(N)
-    int rob(vector<int>& nums) {
-        int n=nums.size();
-        if(n==1) return nums[0];
-        vector<int>dp(n);
-         dp[0]=nums[0];
-         dp[1]=max(nums[0],nums[1]);
+    int memo(int i , vector<int>& v ,vector<int>& dp ){
+        if( i >= v.size()) return 0;
+        if(dp[i]!=-1) return dp[i];
+
+        int robAndMove =  v[i] + memo(i+2,v,dp);
+        int move = memo(i+1,v,dp);
         
-        for(int i=2;i<n;i++){
-            dp[i]=max(dp[i-1],dp[i-2]+nums[i]);
-        }
-        return dp[n-1];
-    }   
-    };
+        return dp[i] = max(robAndMove,move);
+
+    }
+    int rob(vector<int>& nums) {
+        int n= nums.size();
+        vector<int>dp(n+1,-1);
+        return memo(0,nums,dp);
+        
+    }
+};
