@@ -1,18 +1,19 @@
 class Solution {
 public:
-    int minIncrementForUnique(vector<int>& nums) {
-        sort(nums.begin(),nums.end());
-    
-         if(nums.size()<2)
-              return 0;
-     int ans=0;   
-   for(int i=1;i<nums.size();i++){
-       if(nums[i]<=nums[i-1]){
-      
-           ans+=nums[i-1]+1-nums[i];
-            nums[i]=nums[i-1]+1;
-       }
-   }
-        return ans;
+    int minIncrementForUnique(std::vector<int>& nums) {
+        if (nums.empty()) return 0;
+        int moves = 0,maxVal = 0;
+        for(auto c:nums)maxVal=max(maxVal,c);
+        int maxLength = nums.size() + maxVal;
+        vector<int> count(maxLength, 0);
+        for (int c : nums) count[c]++;
+        for (int i = 0; i < maxLength; ++i) {
+            if (count[i] > 1) {
+                int tmp = count[i] - 1;
+                count[i + 1] += tmp;
+                moves += tmp;
+            }
+        }
+        return moves;
     }
 };
