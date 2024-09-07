@@ -2,12 +2,14 @@ class Solution {
 public:
     int firstMissingPositive(vector<int>& nums) {
         bool contains_one = false;
+        
         for(int x: nums){
             if(x == 1){
                 contains_one = true;
                 break;
             }
         }
+
         if(!contains_one) return 1;
         
         int n = nums.size();
