@@ -1,7 +1,6 @@
 class Solution {
 public:
 bool helper(int i,int j,string &s,string &p,vector<vector<int>>&dp){
-    // Jai Shree Ram
     int n=s.size(),m=p.size();
     if(j==m){
         return (i==n);
